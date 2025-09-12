@@ -21,7 +21,7 @@ app.use(
       "https://chat-gpt-frontend-chi.vercel.app/",
     ],
     credentials: true,
-  })
+  }),
 );
 
 // import routes
