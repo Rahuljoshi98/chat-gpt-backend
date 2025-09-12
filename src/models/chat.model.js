@@ -34,6 +34,36 @@ const ChatSchema = new Schema(
   { timestamps: true },
 );
 
+ChatSchema.pre(
+  "deleteOne",
+  { document: false, query: true },
+  async function (next) {
+    const filter = this.getQuery();
+    const chatId = filter._id;
+    if (chatId) {
+      await mongoose.model("Interaction").deleteMany({ chat: chatId });
+    }
+    next();
+  },
+);
+
+ChatSchema.pre(
+  "deleteMany",
+  { document: false, query: true },
+  async function (next) {
+    const filter = this.getQuery();
+    const chats = await mongoose.model("Chat").find(filter).select("_id");
+
+    if (chats.length) {
+      const chatIds = chats.map((c) => c._id);
+      await mongoose
+        .model("Interaction")
+        .deleteMany({ chat: { $in: chatIds } });
+    }
+    next();
+  },
+);
+
 ChatSchema.index({ userId: 1, createdAt: -1 });
 
 export default model("Chat", ChatSchema);

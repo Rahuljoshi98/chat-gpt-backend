@@ -24,4 +24,19 @@ const projectSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+projectSchema.pre(
+  "deleteOne",
+  { document: false, query: true },
+  async function (next) {
+    const filter = this.getQuery();
+    const projectId = filter._id;
+
+    if (projectId) {
+      await mongoose.model("Chat").deleteMany({ projectId });
+    }
+
+    next();
+  },
+);
+
 export default mongoose.model("Project", projectSchema);

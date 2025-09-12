@@ -57,9 +57,11 @@ class ChatRepository extends CrudRepository {
     };
   }
 
-  async deleteUserChat(data) {
-    await this.model.findByIdAndDelete(data);
-    await Interaction.deleteMany({ chat: data });
+  async deleteOne(id) {
+    const { deletedCount } = await this.model.deleteOne({ _id: id });
+    if (!deletedCount) {
+      throw new AppError(["Chat not found"], StatusCodes.NOT_FOUND);
+    }
   }
 }
 

@@ -25,4 +25,16 @@ router.patch(
   ProjectMiddleware.validateUpdateProjectRqst,
   ProjectController.updateProject,
 );
+
+router.delete(
+  "/:id",
+  AuthMiddleware.authenticateUser,
+  ProjectController.deleteProject,
+);
+
+router.get(
+  "/:id",
+  AuthMiddleware.authenticateUser,
+  ProjectController.getAllChatsOfProject,
+);
 export default router;

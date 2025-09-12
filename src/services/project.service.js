@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import AppError from "../utils/errors/appError.js";
 import { ProjectRepository } from "../repository/index.js";
 import { getFieldsToUpdate } from "../utils/helpers/index.js";
+import mongoose from "mongoose";
 
 export const createProject = async (data) => {
   try {
@@ -72,6 +73,47 @@ export const updateProject = async (data) => {
 
     throw new AppError(
       ["Something went wrong while updating projects"],
+      StatusCodes.INTERNAL_SERVER_ERROR,
+    );
+  }
+};
+
+export const deleteProject = async (data) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+  try {
+    const { id } = data;
+    await ProjectRepository.deleteOne(id);
+    return;
+  } catch (error) {
+    console.log("error -->", error);
+    if (error instanceof AppError) throw error;
+
+    throw new AppError(
+      ["Something went wrong while deleting projects"],
+      StatusCodes.INTERNAL_SERVER_ERROR,
+    );
+  }
+};
+
+export const getAllChatsOfProject = async (data) => {
+  try {
+    const { id, page = 1, limit = 15 } = data;
+    const skip = (page - 1) * 10;
+
+    const chats = await ProjectRepository.getAllChats({
+      id,
+      page,
+      limit,
+      skip,
+    });
+    return chats;
+  } catch (error) {
+    console.log("error -->", error);
+    if (error instanceof AppError) throw error;
+
+    throw new AppError(
+      ["Something went wrong while getting chats"],
       StatusCodes.INTERNAL_SERVER_ERROR,
     );
   }

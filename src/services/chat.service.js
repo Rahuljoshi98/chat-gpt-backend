@@ -93,7 +93,7 @@ export const deleteUserChat = async (data) => {
     // use trasaction later
     const { user, id } = data;
 
-    await ChatRepository.deleteUserChat(id);
+    await ChatRepository.deleteOne(id);
     return;
   } catch (error) {
     console.log("error -->", error);

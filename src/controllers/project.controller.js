@@ -41,3 +41,22 @@ export const updateProject = asyncHandler(async (req, res) => {
   await ProjectService.updateProject({ id, body: req.body });
   return res.status(StatusCodes.OK).json(successResponse);
 });
+
+export const deleteProject = asyncHandler(async (req, res) => {
+  const successResponse = SuccessResponse();
+  const { id } = req.params;
+
+  await ProjectService.deleteProject({ id });
+  return res.status(StatusCodes.OK).json(successResponse);
+});
+
+export const getAllChatsOfProject = asyncHandler(async (req, res) => {
+  const successResponse = SuccessResponse();
+  const { id } = req.params;
+
+  const { data, meta } = await ProjectService.getAllChatsOfProject({ id });
+  successResponse.data = data;
+  successResponse.meta = meta;
+
+  return res.status(StatusCodes.OK).json(successResponse);
+});
