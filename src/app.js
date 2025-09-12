@@ -16,9 +16,12 @@ app.use(express.static("public"));
 
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: [
+      "http://localhost:3000",
+      "https://chat-gpt-frontend-chi.vercel.app",
+    ],
     credentials: true,
-  }),
+  })
 );
 
 // import routes
