@@ -29,6 +29,9 @@ class CrudRepository {
 
   async findOne(data) {
     const response = this.model.findOne(data);
+    if (!response) {
+      throw new AppError(["Resouce Not found"], StatusCodes.NOT_FOUND);
+    }
     return response;
   }
 
@@ -54,7 +57,9 @@ class CrudRepository {
   }
 
   async findByIdAndUpdate(id, data) {
-    const response = await this.model.findByIdAndUpdate(id, data);
+    const response = await this.model.findByIdAndUpdate(id, data, {
+      new: true,
+    });
     if (!response) {
       throw new AppError(["Resouce Not found"], StatusCodes.NOT_FOUND);
     }

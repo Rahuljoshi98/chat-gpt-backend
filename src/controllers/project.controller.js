@@ -30,7 +30,7 @@ export const getAllProjects = asyncHandler(async (req, res) => {
   successResponse.data = data;
   successResponse.meta = meta;
 
-  return res.status(StatusCodes.CREATED).json(successResponse);
+  return res.status(StatusCodes.OK).json(successResponse);
 });
 
 export const updateProject = asyncHandler(async (req, res) => {
@@ -38,7 +38,8 @@ export const updateProject = asyncHandler(async (req, res) => {
   const user = req.user;
   const { id } = req.params;
 
-  await ProjectService.updateProject({ id, body: req.body });
+  const project = await ProjectService.updateProject({ id, body: req.body });
+  successResponse.data = project;
   return res.status(StatusCodes.OK).json(successResponse);
 });
 

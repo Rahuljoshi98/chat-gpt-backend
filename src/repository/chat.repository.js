@@ -63,6 +63,16 @@ class ChatRepository extends CrudRepository {
       throw new AppError(["Chat not found"], StatusCodes.NOT_FOUND);
     }
   }
+
+  async findByIdAndUpdate(id, data) {
+    const response = await this.model
+      .findByIdAndUpdate(id, data, { new: true })
+      .select("title _id");
+    if (!response) {
+      throw new AppError(["Resouce Not found"], StatusCodes.NOT_FOUND);
+    }
+    return response;
+  }
 }
 
 export default new ChatRepository();

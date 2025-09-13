@@ -68,6 +68,7 @@ Schema (exact keys):
   "should_end": boolean,
   "language": string | null,
   "metadata": { any } | null,
+  "chatTitle":string || null,
   "error": null | { "code": string, "message": string }
 }
 `;
@@ -82,6 +83,7 @@ IMPORTANT:
 - Output MUST be strictly valid JSON (no leading/trailing text).
 - Use the exact schema described in RESPONSE_SCHEMA.
 - If you cannot fulfill the request, set the "error" property.
+-  Suggest a chatTitle also for the chat.
 
 RESPONSE_SCHEMA:
 ${RESPONSE_SCHEMA}
@@ -123,6 +125,7 @@ USER REQUEST:
         typeof parsed.should_end === "boolean" ? parsed.should_end : false,
       language: parsed.language ?? null,
       metadata: parsed.metadata ?? null,
+      chatTitle: parsed.chatTitle ?? "",
       error: parsed.error ?? null,
     };
 

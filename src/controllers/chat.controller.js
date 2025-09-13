@@ -48,10 +48,10 @@ export const updateChat = asyncHandler(async (req, res) => {
 
   const response = await ChatService.updateChat({
     user: user._id,
-    ...req.body,
+    body: req.body,
     id,
   });
-
+  successResponse.data = response;
   return res.status(StatusCodes.OK).json(successResponse);
 });
 
