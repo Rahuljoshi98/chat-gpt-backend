@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import AppError from "../utils/errors/appError.js";
 import { ChatRepository, InteractionRepository } from "../repository/index.js";
 import * as AiService from "./ai.service.js";
+import { getFieldsToUpdate } from "../utils/helpers/index.js";
 
 export const addInteraction = async (data) => {
   try {
@@ -28,15 +29,21 @@ export const addInteraction = async (data) => {
     const chatHistory = await InteractionRepository.getChatHistory(chat);
 
     const response = await AiService.getAIResponse(userText, chatHistory);
+    if (response.json.chatTitle && chat.title == "New Chat") {
+      chat.title = response.json.chatTitle;
+      await chat.save();
+    }
     interaction.response.text = response.json.response_text;
     interaction.response.model = response.model || "gpt-4o-mini";
     await interaction.save();
     const resData = {
+      chatId: chat._id,
       role: "assistant",
       content: {
         type: response.json.response_type,
         data: response.json.response_text,
       },
+      title: chat.title,
       model: response.model || "gpt-4o-mini",
       timestamp: new Date(),
     };
@@ -104,4 +111,16 @@ export const deleteUserChat = async (data) => {
       StatusCodes.INTERNAL_SERVER_ERROR,
     );
   }
+};
+
+export const updateChat = async (data) => {
+  try {
+    const { user, body, id } = data;
+    const allowedfieldsToUpdate = ["title"];
+
+    const fieldsToBeUpdated = getFieldsToUpdate(allowedfieldsToUpdate, body);
+
+    const chat = await ChatRepository.findByIdAndUpdate(id, fieldsToBeUpdated);
+    return chat;
+  } catch (error) {}
 };

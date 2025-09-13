@@ -74,6 +74,16 @@ class ProjectRepository extends CrudRepository {
       },
     };
   }
+
+  async findByIdAndUpdate(id, data) {
+    const response = await this.model
+      .findByIdAndUpdate(id, data, { new: true })
+      .select("name _id");
+    if (!response) {
+      throw new AppError(["Resouce Not found"], StatusCodes.NOT_FOUND);
+    }
+    return response;
+  }
 }
 
 export default new ProjectRepository();
