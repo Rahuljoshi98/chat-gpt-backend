@@ -38,8 +38,8 @@ export const authenticateUser = async (req, res, next) => {
 
   try {
     // Clerk parses session automatically
-    // const { userId } = getAuth(req);
-    const userId = "user_32Z19l9wQ6uMlD62SsI2B3zFhoQ";
+    const { userId } = getAuth(req);
+    // const userId = "user_32Z19l9wQ6uMlD62SsI2B3zFhoQ";
 
     if (!userId) {
       errorResponse.message = "Unauthorized Request";
