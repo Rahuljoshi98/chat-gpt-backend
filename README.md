@@ -901,4 +901,34 @@ This project is licensed under the MIT License.
 
 ---
 
+#
+
+## 9. Future Scope and Improvements
+
+This section outlines potential enhancements and ideas for future development:
+
+- **WebSocket/Realtime Support:**
+  - Add real-time chat updates using WebSockets (e.g., Socket.io) for instant message delivery and typing indicators.
+- **Advanced AI Features:**
+  - Support for multi-modal AI (images, code, documents).
+  - Integrate more advanced prompt engineering and context management.
+- **User Roles and Permissions:**
+  - Implement admin/moderator roles, project sharing, and granular access control.
+- **Audit Logging and Analytics:**
+  - Track user actions, chat statistics, and system health for monitoring and insights.
+- **Rate Limiting and Abuse Prevention:**
+  - Add per-user rate limits and abuse detection to protect the API and prevent spam.
+- **Testing and CI/CD:**
+  - Expand automated test coverage and set up continuous integration/deployment pipelines.
+- **API Documentation:**
+  - Generate OpenAPI/Swagger docs for easier client integration and onboarding.
+- **Internationalization (i18n):**
+  - Add support for multiple languages in the API and responses.
+- **Pluggable Storage:**
+  - Support for alternative file storage providers (S3, GCS, etc.) and database backends.
+- **Performance Optimization:**
+  - Profile and optimize database queries, caching, and response times for scale.
+
+Feel free to contribute ideas or open issues/PRs for any of these improvements!
+
 # End of Documentation

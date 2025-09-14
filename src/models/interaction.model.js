@@ -55,6 +55,12 @@ const interactionSchema = new Schema(
         trim: true,
         default: "",
       },
+      inputType: {
+        type: String,
+        enum: ["text", "file", "text+file"],
+        required: true,
+        default: "text",
+      },
 
       attachments: [
         {

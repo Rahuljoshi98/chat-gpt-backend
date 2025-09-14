@@ -34,6 +34,7 @@ export const addInteraction = async (data) => {
       await chat.save();
     }
     interaction.response.text = response.json.response_text;
+    interaction.response.inputType = response.json.response_type;
     interaction.response.model = response.model || "gpt-4o-mini";
     await interaction.save();
     const resData = {
