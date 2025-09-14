@@ -33,7 +33,7 @@ app.use(express.static("public"));
 
 // 🔹 Debug route
 app.get("/whoami", (req, res) => {
-  const { userId, sessionId } = req.auth || {};
+  const { userId, sessionId, getToken } = req.auth;
   res.json({ userId, sessionId });
 });
 
