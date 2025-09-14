@@ -41,7 +41,7 @@ class InteractionRepository extends CrudRepository {
           attachments: doc.response?.attachments || [],
           model: doc.response?.model,
           provider: doc.response?.provider,
-          inputType: doc.input?.inputType,
+          inputType: doc.response?.inputType,
           createdAt: doc.createdAt,
         });
       }
