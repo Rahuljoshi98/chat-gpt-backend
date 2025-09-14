@@ -16,7 +16,7 @@ app.use(
       "http://localhost:3000",
       "https://chat-gpt-frontend-chi.vercel.app",
     ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"], // 👈 allow auth header
     credentials: true,
   }),
